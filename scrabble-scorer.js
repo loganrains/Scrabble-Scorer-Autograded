@@ -55,7 +55,7 @@ function initialPrompt() {
 };
 
 // Don't change name v
-function simpleScorer (word) {
+let simpleScorer = function (word) {
    let score = 0;
    score += word.length;
    console.log(`\nScore for '${word}': ${score}`)
@@ -63,7 +63,7 @@ function simpleScorer (word) {
 }
 
 // Don't change name v
-function vowelBonusScorer (word) {
+let vowelBonusScorer = function (word) {
    let score = 0;
    let vowel = ["A", "E", "I", "O", "U", "a", "e", "i", "o", "u"];
 
@@ -77,6 +77,11 @@ function vowelBonusScorer (word) {
    console.log(`\nScore for '${word}': ${score}`)
    return score;
 }
+
+// Don't change name v
+let newPointStructure = {
+   // transform(oldPointStructure)
+};
 
 function scrabbleScorer () {
 
@@ -128,21 +133,26 @@ Enter 1, 2, or 3: `);
 };
 
 // Don't change name v
-function transform() {};
+function transform (Obj) {
+   for (letter in Obj) {
+      Obj[letter]
+   }
 
-let newPointStructure;
+   return Obj
+}
 
 function runProgram() {
    let scrabbleWord = initialPrompt();
+
    let scorer = scorerPrompt()
    scorer.scorerFunction(scrabbleWord)
 
 
    // console.log(oldScrabbleScorer(scrabble)); <-- Task 1
 
-   // Simple scoring Test v
-   // console.log("algorithm name: ", scoringAlgorithms[0].name);
-   // console.log("scoringFunction result: ", scoringAlgorithms[0].scorerFunction("JavaScript"));
+   /* Simple scoring Test from task 2 v
+   console.log("algorithm name: ", scoringAlgorithms[0].name);
+   console.log("scoringFunction result: ", scoringAlgorithms[0].scorerFunction("JavaScript")); */
 
 }
 
