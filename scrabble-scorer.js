@@ -52,7 +52,6 @@ function initialPrompt() {
 let simpleScorer = function (word) {
    let score = 0;
    score += word.length;
-   console.log(`\nScore for '${word}': ${score}`)
    return score;
 }
 
@@ -67,7 +66,6 @@ let vowelBonusScorer = function (word) {
          score += 1
       }
    }
-   console.log(`\nScore for '${word}': ${score}`)
    return score;
 }
 
@@ -81,7 +79,6 @@ function scrabbleScorer (word) {
       score += newPointStructure[wordLower[i]]
    }
 
-   console.log(`\nScore for '${word}': ${score}`)
    return score;
 }
 
@@ -134,7 +131,7 @@ function transform (Obj) {
          newObject[Obj[pointVal][i].toLowerCase()] = Number(pointVal)
       }
    }
-   
+
    return newObject
 }
 
@@ -145,7 +142,7 @@ function runProgram() {
          break;
       }
    let scorer = scorerPrompt();
-   scorer.scorerFunction(scrabbleWord);
+   console.log(`\nScore for '${scrabbleWord}': ${scorer.scorerFunction(scrabbleWord)}`)
 
    let lineBreak = ("-");
    console.log(lineBreak.repeat(35) + "\n\n");
