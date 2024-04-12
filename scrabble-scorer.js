@@ -2,7 +2,6 @@
 
 const input = require("readline-sync");
 
-// Don't change name v
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
@@ -28,16 +27,12 @@ function oldScrabbleScorer(word) {
 	  }
 	}
 	return letterPoints;
- }
+}
 
-// your job is to finish writing these functions and variables that we've named //
-// don't change the names or your program won't work as expected. //
-
-// Don't change name v
 function initialPrompt() {
    // console.log("Let's play some scrabble! Enter a word:");
    console.log("Let's play some scrabble!")
-   let word = input.question(`\nEnter a word to score: `);
+   let word = input.question(`\nEnter a word to score or QUIT to stop: `);
    
    // Word clean up v
    word =  word.trim();
@@ -54,7 +49,6 @@ function initialPrompt() {
    return word;
 };
 
-// Don't change name v
 let simpleScorer = function (word) {
    let score = 0;
    score += word.length;
@@ -62,7 +56,6 @@ let simpleScorer = function (word) {
    return score;
 }
 
-// Don't change name v
 let vowelBonusScorer = function (word) {
    let score = 0;
    let vowel = ["A", "E", "I", "O", "U", "a", "e", "i", "o", "u"];
@@ -78,13 +71,18 @@ let vowelBonusScorer = function (word) {
    return score;
 }
 
-// Don't change name v
-let newPointStructure = {
-   // transform(oldPointStructure)
-};
+let newPointStructure = transform(oldPointStructure);
 
-function scrabbleScorer () {
+function scrabbleScorer (word) {
+   let score = 0;
+   wordLower = word.toLowerCase();
 
+   for (let i = 0; i < wordLower.length; i++){
+      score += newPointStructure[wordLower[i]]
+   }
+
+   console.log(`\nScore for '${word}': ${score}`)
+   return score;
 }
 
 let simple = {
@@ -102,13 +100,11 @@ let vowelBonus = {
 let scrabble = {
    name : "Scrabble",
    description : "The traditional scoring algorithm.",
-   scorerFunction : oldScrabbleScorer,
+   scorerFunction : scrabbleScorer,
 }
 
-// Don't change name v
 const scoringAlgorithms = [simple, vowelBonus, scrabble];
 
-// Don't change name v
 function scorerPrompt() {
    let scorer = input.question(`Which scoring algorithm would you like to use?
    
@@ -117,7 +113,6 @@ function scorerPrompt() {
 3 - ${scrabble.name}: ${scrabble.description}
 Enter 1, 2, or 3: `);
 
-   //User Verification - 1, 2, or 3
    while (true) {
       if (scorer < 1 || scorer > 3) {
          scorer = input.question(`Please enter 1, 2, or 3: `)
@@ -126,38 +121,37 @@ Enter 1, 2, or 3: `);
       }
    }
 
-   // Convert to index v
    scorer -= 1;
 
    return scoringAlgorithms[scorer];
 };
 
-// Don't change name v
 function transform (Obj) {
-   for (letter in Obj) {
-      Obj[letter]
+   newObject = {};
+   
+   for (pointVal in Obj) {     
+      for (let i = 0; i < Obj[pointVal].length; i++){
+         newObject[Obj[pointVal][i].toLowerCase()] = Number(pointVal)
+      }
    }
-
-   return Obj
+   
+   return newObject
 }
 
 function runProgram() {
-   let scrabbleWord = initialPrompt();
+   while (true){
+      let scrabbleWord = initialPrompt();
+      if (scrabbleWord === "QUIT"){
+         break;
+      }
+   let scorer = scorerPrompt();
+   scorer.scorerFunction(scrabbleWord);
 
-   let scorer = scorerPrompt()
-   scorer.scorerFunction(scrabbleWord)
-
-
-   // console.log(oldScrabbleScorer(scrabble)); <-- Task 1
-
-   /* Simple scoring Test from task 2 v
-   console.log("algorithm name: ", scoringAlgorithms[0].name);
-   console.log("scoringFunction result: ", scoringAlgorithms[0].scorerFunction("JavaScript")); */
-
+   let lineBreak = ("-");
+   console.log(lineBreak.repeat(35) + "\n\n");
+   }
 }
 
-// Don't write any code below this line //
-// And don't change these or your program will not run as expected //
 module.exports = {
    initialPrompt: initialPrompt,
    transform: transform,
